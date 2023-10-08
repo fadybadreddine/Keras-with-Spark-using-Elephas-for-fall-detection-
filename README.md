@@ -24,6 +24,6 @@ The model is trained using Spark and evaluated on the test set.
 8.display results:
 Predictions are converted into a binary format according to a threshold. Finally, various evaluation metrics, such as confusion matrix, accuracy and classification ratio, are displayed.
 
-Comment Exécuter
-Si vous utilisez Google Colab, téléchargez le code dans un notebook et exécutez chaque cellule séquentiellement.
-Assurez-vous que les fichiers de données (comme df.csv) sont accessibles à partir de l'emplacement spécifié ou mettez à jour les chemins en conséquence.
+How to run
+If you're using Google Colab, download the code into a notebook and run each cell sequentially.
+Make sure that data files (such as df.csv) are accessible from the specified location, or update the paths accordingly.
