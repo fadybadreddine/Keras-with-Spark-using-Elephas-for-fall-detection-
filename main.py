@@ -94,7 +94,7 @@ def create_model(input_length):
 
 def create_model(input_length):
     model = Sequential()
-    model.add(Embedding(input_dim=95, output_dim=50, input_length=input_length))
+    model.add(Embedding(input_dim=168, output_dim=50, input_length=input_length))
     model.add(GRU(units=256, activation='relu', recurrent_activation='hard_sigmoid', return_sequences=True))
     model.add(Dropout(0.5))
     model.add(GRU(units=256, activation='relu', recurrent_activation='hard_sigmoid', return_sequences=True))
