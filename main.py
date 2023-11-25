@@ -23,30 +23,29 @@ spark = SparkSession.builder.getOrCreate()
 # Obtenir le SparkContext à partir de la session Spark
 sc = spark.sparkContext
 
-
-from google.colab import drive
-drive.mount('/content/drive')
-
-#%cd /content/drive/MyDrive
-
+import pandas as pd
+from sklearn.model_selection import train_test_split
 
 def load_dataset(filename):
-# charger l'ensemble de données sous forme de pandas DataFrame
-  data = pd.read_csv('dataframefinal.csv', header=None)
-  # extraire le tableau numpy
-  dataset = data.values
-# séparer les variables d'entrée (X) et de sortie (y)
-  X = dataset[:, :-1]
-  y = dataset[:,-1]
-# formater tous les champs en chaîne de caractères
-  X = X.astype(str)
-# remodeler la sortie pour qu'elle soit un tableau 2D
-  y = y.reshape((len(y), 1))
-  return X, y
+    # Charger l'ensemble de données sous forme de pandas DataFrame en utilisant le paramètre 'filename'
+    data = pd.read_csv(filename, header=None)
+    # Extraire le tableau numpy
+    dataset = data.values
+    # Séparer les variables d'entrée (X) et de sortie (y)
+    X = dataset[:, :-1]
+    y = dataset[:, -1]
+    # Formater tous les champs en chaîne de caractères
+    X = X.astype(str)
+    # Remodeler la sortie pour qu'elle soit un tableau 2D
+    y = y.reshape((len(y), 1))
+    return X, y
 
-X, y = load_dataset('df.csv')
+# Utilisation de la fonction avec un nom de fichier
+X, y = load_dataset('chemin/vers/votre/fichier.csv')
 
+# Séparation des données en ensembles d'entraînement et de test
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, stratify=y)
+
 
 
 # Convertissez X_train en listes de DenseVector
@@ -77,7 +76,7 @@ data_tuples = list(zip(X_dense1, y_dense1))
 test_df  = spark.createDataFrame(data_tuples, ["features", "label"])
 
 test_df.show()
-
+#Veuillez choisir d'utiliser soit un modèle LSTM soit un modèle GRU
 def create_model(input_length):
     model = Sequential()
     model.add(Embedding(input_dim=168, output_dim=50, input_length=input_length))
@@ -129,33 +128,43 @@ estimator.set_categorical_labels(False)
 estimator.set_nb_classes(2)
 
 # Entraîner le modèle avec Spark
-pipeline = Pipeline(stages=[estimator])
-fitted_pipeline = pipeline.fit(df)
-
-# Evaluate the fitted pipeline model on test data.
-prediction = fitted_pipeline.transform(test_df)
-df2 = prediction.select("label", "prediction")
-df2.show(100,50)
+paramGrid = ParamGridBuilder().addGrid(estimator.epochs, [10, 50]).addGrid(estimator.batch_size, [16, 32]).build()
+evaluator = BinaryClassificationEvaluator(rawPredictionCol="prediction", labelCol="label", metricName="areaUnderROC")
+crossval = CrossValidator(estimator=pipeline, estimatorParamMaps=paramGrid, evaluator=evaluator, numFolds=3)
+cvModel = crossval.fit(df)
 
 
-
-def apply_threshold(value):
-    return 1.0 if float(value[0]) >= 0.5 else 0.0
-
-threshold_udf = udf(apply_threshold, DoubleType())
-
-df2 = df2.withColumn("final_prediction", threshold_udf("prediction"))
-df2.show(100)
+predictions = cvModel.transform(test_df)
+predictions.select("features", "label", "prediction").show()
 
 
+from pyspark.ml.evaluation import MulticlassClassificationEvaluator
+evaluator = MulticlassClassificationEvaluator(labelCol="label", predictionCol="final_prediction", metricName="accuracy")
+accuracy = evaluator.evaluate(test_df)
+print("Accuracy du modèle : ", accuracy)
 
-# Convertir les prédictions en DataFrame
-df_predictions = df2.toPandas()
 
-# Matrice de confusion
-print(confusion_matrix(df_predictions['label'], df_predictions['final_prediction']))
+from pyspark.sql.functions import col
+confusion_matrix = test_df.groupBy('label').pivot('final_prediction', [0.0, 1.0]).count().na.fill(0)
+confusion_matrix.show()
+TP = confusion_matrix.filter(col("label") == 1.0).select("`1.0`").first()[0]
+FN = confusion_matrix.filter(col("label") == 1.0).select("`0.0`").first()[0]
+FP = confusion_matrix.filter(col("label") == 0.0).select("`1.0`").first()[0]
+TN = confusion_matrix.filter(col("label") == 0.0).select("`0.0`").first()[0]
 
-# Accuracy
-print("Accuracy:", accuracy_score(df_predictions['label'], df_predictions['final_prediction']))
+precision = TP / (TP + FP) if (TP + FP) > 0 else 0
+print("Précision: ", precision)
 
-# Autres métriques
+specificite = TN / (TN + FP) if (TN + FP) > 0 else 0
+print("Spécificité: ", specificite)
+
+recall = TP / (TP + FN) if (TP + FN) > 0 else 0
+print("Rappel: ", recall)
+
+f1_score = 2 * (precision * recall) / (precision + recall) if (precision + recall) > 0 else 0
+print("Score F1: ", f1_score)
+
+
+
+
+
