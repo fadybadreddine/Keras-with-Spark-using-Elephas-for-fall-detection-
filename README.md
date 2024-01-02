@@ -1,7 +1,7 @@
 Project to integrate Keras with Spark using Elephas
 This project presents an example of how to integrate a deep neural network (RNN) architecture built with Keras into a Spark infrastructure for training and evaluation.
 In this project, two distinct datasets were utilised for training and validation: 
-The primary training dataset, accessible through this link[Link Text] (http://fenix.ur.edu.pl/mkepski/ds/uf.html) , comprises sequences of video data captured by cutting-edge motion capture and computer vision devices. These include Microsoft Kinect cameras and sensors such as the PS Move and x-IMU. The dataset consists of 70 detailed video sequences, with 30 dedicated to simulating falls and 40 for recording daily activities. This dataset provides essential data for training our model to accurately differentiate between these two types of events.
+The primary training dataset, accessible through this link (http://fenix.ur.edu.pl/mkepski/ds/uf.html) , comprises sequences of video data captured by cutting-edge motion capture and computer vision devices. These include Microsoft Kinect cameras and sensors such as the PS Move and x-IMU. The dataset consists of 70 detailed video sequences, with 30 dedicated to simulating falls and 40 for recording daily activities. This dataset provides essential data for training our model to accurately differentiate between these two types of events.
 
 Installation
 To install the necessary dependencies, run the following command:
