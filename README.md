@@ -11,7 +11,7 @@ pip install elephas
 Code description
 1.imports:
 The code begins by importing the necessary libraries such as Keras, Spark, sklearn, pandas, etc.  2.connection to Google Drive :
-If you use Google Colab, the code contains a step to mount your Google Drive so you can access the files on it.
+If you use Google Colab, the code contains a step to mount your Google Drive so you can access the files on it.  
 3.loading data :
 A load_dataset function is provided to load your data from a CSV file. 
 4.data preparation :
