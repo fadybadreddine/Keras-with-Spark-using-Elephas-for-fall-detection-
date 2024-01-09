@@ -17,7 +17,7 @@ I am sharing a Google Drive link containing various folders for different fall s
 Explanation of the Drive Link:
 
 The provided link likely leads to a Google Drive directory where you can find subdirectories for each fall scenario.
-Inside each fall scenario directory, you'll find the annotated photos, a "chute1.csv" file with position and label information, and potentially a "labels" file providing details about individual photos.
+Inside each fall scenario directory, you'll find the annotated photos, a "1.csv" file with position and label information, and potentially a "labels" file providing details about individual photos.
 
 For the validation of our model, a secondary dataset was employed. This dataset, obtained from "Auvinet, C. Rougier, J. Meunier, A. St-Arnaud, and J. Rousseau" in January 2011, is known as the "Multiple Cameras Fall Data Set " (https://www.researchgate.net/publication/267693256_Multiple_cameras_fall_data_set)
 is based on a multicamera system consisting of eight economical IP cameras strategically positioned to cover an entire room. The recorded video sequences reflect common challenges that can lead to segmentation errors, including high video compression, shadows, reflections, complex backgrounds, lighting variations, worn objects, and occlusions
