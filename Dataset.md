@@ -13,7 +13,7 @@ The manual annotations, including position information, are recorded in a CSV fi
 (https://drive.google.com/drive/folders/1mkED6QJ2ynfnySBCuQpLGb0aQHnFiZ6e?usp=sharing)
 Google Drive Dataset:
 
-You've mentioned sharing a Google Drive link containing various folders for different fall scenarios. Each folder follows a naming convention specifying the fall number, camera, and color format (grayscale).
+I am sharing a Google Drive link containing various folders for different fall scenarios. Each folder follows a naming convention specifying the fall number, camera, and color format (grayscale).
 Explanation of the Drive Link:
 
 The provided link likely leads to a Google Drive directory where you can find subdirectories for each fall scenario.
