@@ -9,9 +9,9 @@ Assembly into Series of 16:
 The photos are organized into series, with each series consisting of 16 images. These images are likely selected to represent a sequence or scenario related to a particular fall event.
 CSV File ("1.csv"):
 
-The manual annotations, including position information, are recorded in a CSV file associated with each fall scenario folder. The file follows a structure where each row corresponds to a different position in the series of 16 photos, and the 17th column contains the label.
+The manual annotations, including position information, are recorded in a CSV file associated with each fall scenario folder. The file follows a structure where each row corresponds to a different position in the series of 16 photos, and the 17th column contains the label. Google Drive Dataset: 
 (https://drive.google.com/drive/folders/1mkED6QJ2ynfnySBCuQpLGb0aQHnFiZ6e?usp=sharing)
-Google Drive Dataset:
+
 
 I am sharing a Google Drive link containing various folders for different fall scenarios. Each folder follows a naming convention specifying the fall number, camera, and color format (grayscale).
 Explanation of the Drive Link:
@@ -20,5 +20,5 @@ The provided link likely leads to a Google Drive directory where you can find su
 Inside each fall scenario directory, you'll find the annotated photos, a "1.csv" file with position and label information, and potentially a "labels" file providing details about individual photos.
 
 For the validation of our model, a secondary dataset was employed. This dataset, obtained from "Auvinet, C. Rougier, J. Meunier, A. St-Arnaud, and J. Rousseau" in January 2011, is known as the "Multiple Cameras Fall Data Set " (https://www.researchgate.net/publication/267693256_Multiple_cameras_fall_data_set)
- Google Drive Dataset: (https://drive.google.com/drive/folders/1tOWTiIRAkWbq8vrtN7ljpZVcmWM1TFz0?usp=drive_link)
+ Google Drive Dataset: (https://drive.google.com/drive/folders/1tOWTiIRAkWbq8vrtN7ljpZVcmWM1TFz0?usp=sharing)
 is based on a multicamera system consisting of eight economical IP cameras strategically positioned to cover an entire room. The recorded video sequences reflect common challenges that can lead to segmentation errors, including high video compression, shadows, reflections, complex backgrounds, lighting variations, worn objects, and occlusions
